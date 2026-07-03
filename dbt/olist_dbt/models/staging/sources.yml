@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: analytics
+    database: silken-network-417920
+    schema: analytics
+
+    tables:
+      - name: sales_dataset
