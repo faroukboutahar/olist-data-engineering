@@ -1,0 +1,31 @@
+services:
+
+  spark:
+
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile.spark
+
+    container_name: olist-spark
+
+    working_dir: /app
+
+    volumes:
+      - ./data:/workspace/data
+
+    command: python src/main.py
+
+  dbt:
+
+    image: ghcr.io/dbt-labs/dbt-bigquery:1.8.2
+
+    container_name: olist-dbt
+
+    working_dir: /usr/app
+
+    volumes:
+      - ./dbt/olist_dbt:/usr/app
+      - ./dbt/.dbt:/root/.dbt
+      - ./dbt/.keys:/root/.keys:ro
+
+    tty: true

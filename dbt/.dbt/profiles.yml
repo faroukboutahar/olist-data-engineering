@@ -1,0 +1,12 @@
+olist_dbt:
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: silken-network-417920
+      dataset: analytics
+      threads: 4
+      timeout_seconds: 300
+      location: US
+      keyfile: /root/.keys/dbt-bigquery-sa.json
+  target: dev

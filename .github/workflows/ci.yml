@@ -1,0 +1,45 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  project-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Copier le dépôt dans la machine Ubuntu temporaire
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Installer une version précise de Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Vérifier la syntaxe des fichiers Python
+      - name: Check Python syntax
+        run: python -m compileall src airflow/dags
+
+      # 4. Vérifier la syntaxe du compose principal
+      - name: Validate main Docker Compose file
+        run: docker compose -f compose.yaml config
+
+      # 5. Vérifier la syntaxe du compose Airflow
+      - name: Validate Airflow Docker Compose file
+        run: docker compose -f airflow/compose.airflow.yaml config
+
+      # 6. Vérifier que l'image Spark peut être construite
+      - name: Build Spark Docker image
+        run: docker build -f Docker/Dockerfile.spark -t olist-spark-ci .
+
+      # 7. Vérifier que l'image Airflow peut être construite
+      - name: Build Airflow Docker image
+        run: docker build -f Docker/Dockerfile.airflow -t olist-airflow-ci .

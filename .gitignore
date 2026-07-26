@@ -7,12 +7,10 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Virtual environments
 .venv/
 venv/
 env/
 
-# Environment variables
 .env
 
 # =====================================================
@@ -29,7 +27,7 @@ env/
 .idea/
 
 # =====================================================
-# Operating System
+# Operating systems
 # =====================================================
 
 .DS_Store
@@ -41,15 +39,25 @@ Thumbs.db
 
 *.log
 logs/
+airflow/logs/
+
+# Airflow generated runtime files
+airflow/dags/dag_id=*/
+airflow/dags/dag_processor/
 
 # =====================================================
-# Temporary data
+# Generated data
 # =====================================================
 
+data/processed/
 data/tmp/
 
+# Keep demonstration CSV samples
+!data/sample/
+!data/sample/*.csv
+
 # =====================================================
-# Secrets / Credentials
+# Secrets and credentials
 # =====================================================
 
 .keys/
@@ -59,40 +67,50 @@ dbt/.keys/
 *.key
 *.p12
 
-# Service account keys
+# Prevent accidental service-account exposure
 *.json
 
 # =====================================================
 # dbt local configuration
 # =====================================================
 
-dbt/.dbt/
+dbt/.dbt/.user.yml
+
+# profiles.yml is kept only after checking that it
+# contains no password or private key
+# dbt/.dbt/profiles.yml
 
 # dbt generated artifacts
 dbt/olist_dbt/target/
 dbt/olist_dbt/logs/
+dbt/olist_dbt/dbt/
+dbt/olist_dbt/dbt_packages/
 
-# (au cas où tu renommes le dossier plus tard)
 dbt/target/
 dbt/logs/
+dbt/dbt_packages/
 
 # =====================================================
-# Spark temporary files
+# Spark generated files
 # =====================================================
 
 *.crc
 _SUCCESS
 
 # =====================================================
+# Terraform — future generated/local files
+# =====================================================
+
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+crash.log
+terraform.tfvars
+*.auto.tfvars
+
+# =====================================================
 # Docker
 # =====================================================
 
 *.pid
-
-# =====================================================
-# Optional
-# (décommente seulement si un jour tu veux ignorer les datasets)
-# =====================================================
-
-# data/sample/*.csv
-# data/processed/*.parquet
