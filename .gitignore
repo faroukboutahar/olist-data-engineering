@@ -98,14 +98,15 @@ dbt/dbt_packages/
 _SUCCESS
 
 # =====================================================
-# Terraform — future generated/local files
+# Terraform generated/local files
 # =====================================================
 
 .terraform/
 *.tfstate
 *.tfstate.*
-.terraform.lock.hcl
+*.tfplan
 crash.log
+crash.*.log
 terraform.tfvars
 *.auto.tfvars
 
